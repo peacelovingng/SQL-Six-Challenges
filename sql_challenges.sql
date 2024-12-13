@@ -26,8 +26,8 @@ WITH customers_data AS (
     USING(customer_id)
 )
 
-SELECT c.customer_id, c.customer_name, 
-       o.order_date, o.order_amount
-       SUM(order_amount) OVER(PARTITION  BY customer_id
-       ORDER BY order_date)
+SELECT customer_id, customer_name,
+       order_date, order_amount,
+       SUM(order_amount) 
+       OVER(PARTITION  BY customer_id ORDER BY order_date)
 FROM customers_data;
