@@ -16,6 +16,18 @@ RANK() OVER(ORDER BY total_spent DESC) AS rank,
 DENSE_RANK() OVER(ORDER BY total_spent DESC) AS dense_rank 
 FROM customers_spending;
 
-/*2. Cumulative Summations
-Calculate the cumulative sum of the order amounts for each customer.*/
+/*2. Cumulative Summations 
+Find the cumulative sum of the order amounts for each customer.*/
 
+WITH customers_data AS (
+    SELECT c.customer_id, c.customer_name, o.order_date, o.order_amount
+    FROM customers c
+    INNER JOIN orders o
+    USING(customer_id)
+)
+
+SELECT c.customer_id, c.customer_name, 
+       o.order_date, o.order_amount
+       SUM(order_amount) OVER(PARTITION  BY customer_id
+       ORDER BY order_date)
+FROM customers_data;
