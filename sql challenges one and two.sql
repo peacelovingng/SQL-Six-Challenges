@@ -28,6 +28,7 @@ WITH customers_data AS (
 
 SELECT customer_id, customer_name,
        order_date, order_amount,
-       SUM(order_amount) 
+       SUM(order_amount)
        OVER(PARTITION  BY customer_id ORDER BY order_date)
+       AS cummulative_sum
 FROM customers_data;
