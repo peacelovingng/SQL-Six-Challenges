@@ -33,5 +33,3 @@ SELECT year, total_orders, current_year_revenue,
        OVER(ORDER BY year)) AS growth
 FROM yearly_revenue;
 
-
-
